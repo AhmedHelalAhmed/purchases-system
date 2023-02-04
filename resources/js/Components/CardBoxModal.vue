@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from "vue";
-import { mdiClose } from "@mdi/js";
+import {computed} from "vue";
+import {mdiClose} from "@mdi/js";
 import BaseButton from "@/Components/BaseButton.vue";
 import BaseButtons from "@/Components/BaseButtons.vue";
 import CardBox from "@/Components/CardBox.vue";
@@ -21,6 +21,10 @@ const props = defineProps({
     default: "Done",
   },
   hasCancel: Boolean,
+  hasButton: {
+    type: Boolean,
+    default: true
+  },
   modelValue: {
     type: [String, Number, Boolean],
     default: null,
@@ -69,12 +73,14 @@ window.addEventListener("keydown", (e) => {
       </CardBoxComponentTitle>
 
       <div class="space-y-3">
-        <slot />
+        <slot/>
       </div>
 
       <template #footer>
         <BaseButtons>
-          <BaseButton :label="buttonLabel" :color="button" @click="confirm" />
+          <BaseButton
+            v-if="hasButton"
+            :label="buttonLabel" :color="button" @click="confirm"/>
           <BaseButton
             v-if="hasCancel"
             label="Cancel"
