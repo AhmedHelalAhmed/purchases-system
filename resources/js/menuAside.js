@@ -1,19 +1,19 @@
 import {
-  mdiGithub,
-  mdiReact,
+  mdiPointOfSale,
+  mdiSelectGroup,
 } from "@mdi/js";
 
 export default [
   {
-    href: "https://github.com/justboil/admin-one-vue-tailwind",
-    label: "GitHub",
-    icon: mdiGithub,
+    href: "/users",
+    label: "Users",
+    icon: mdiSelectGroup,
     target: "_blank",
   },
   {
-    href: "https://github.com/justboil/admin-one-react-tailwind",
-    label: "React version",
-    icon: mdiReact,
+    href: "/purchases",
+    label: "Purchases",
+    icon: mdiPointOfSale,
     target: "_blank",
   },
 ];
