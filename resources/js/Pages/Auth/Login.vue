@@ -23,7 +23,7 @@ const props = defineProps({
 })
 
 const form = useForm({
-  email: '',
+  username: '',
   password: '',
   remember: []
 })
@@ -63,16 +63,16 @@ const submit = () => {
         </NotificationBarInCard>
 
         <FormField
-          label="Email"
-          label-for="email"
-          help="Please enter your email"
+          label="Username"
+          label-for="username"
+          help="Please enter your username"
         >
           <FormControl
-            v-model="form.email"
+            v-model="form.username"
             :icon="mdiAccount"
-            id="email"
-            autocomplete="email"
-            type="email"
+            id="username"
+            autocomplete="username"
+            type="text"
             required
           />
         </FormField>
