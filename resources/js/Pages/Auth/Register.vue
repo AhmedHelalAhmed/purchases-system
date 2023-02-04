@@ -21,7 +21,7 @@ const form = useForm({
   terms: [],
 })
 
-const hasTermsAndPrivacyPolicyFeature = computed(() => usePage().props.value?.jetstream?.hasTermsAndPrivacyPolicyFeature )
+const hasTermsAndPrivacyPolicyFeature = computed(() => usePage().props?.jetstream?.hasTermsAndPrivacyPolicyFeature )
 
 const submit = () => {
   form
