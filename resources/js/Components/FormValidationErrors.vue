@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import NotificationBarInCard from '@/Components/NotificationBarInCard.vue'
 
-const errors = computed(() => usePage().props.value.errors)
+const errors = computed(() => usePage().props.errors)
 
 const hasErrors = computed(() => Object.keys(errors.value).length > 0)
 </script>
