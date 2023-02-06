@@ -1,13 +1,13 @@
 <script setup>
 import { mdiChevronUp, mdiChevronDown } from "@mdi/js";
-import { Link } from '@inertiajs/vue3'
+import { Link } from "@inertiajs/vue3";
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 import { useStyleStore } from "@/Stores/style.js";
 import BaseIcon from "@/Components/BaseIcon.vue";
 import UserAvatarCurrentUser from "@/Components/UserAvatarCurrentUser.vue";
 import NavBarMenuList from "@/Components/NavBarMenuList.vue";
 import BaseDivider from "@/Components/BaseDivider.vue";
-import { usePage } from '@inertiajs/vue3'
+import { usePage } from "@inertiajs/vue3";
 
 const props = defineProps({
   item: {
@@ -19,20 +19,22 @@ const props = defineProps({
 const emit = defineEmits(["menu-click"]);
 
 // Add itemHref
-const itemHref = computed(() => props.item.route ? route(props.item.route) : props.item.href)
+const itemHref = computed(() =>
+  props.item.route ? route(props.item.route) : props.item.href
+);
 
 // Update `const is` to return `Link` when `props.routeName` is set:
 const is = computed(() => {
-    if (props.item.href) {
-        return 'a'
-    }
+  if (props.item.href) {
+    return "a";
+  }
 
-    if (props.item.route) {
-        return Link
-    }
+  if (props.item.route) {
+    return Link;
+  }
 
-    return 'div'
-})
+  return "div";
+});
 
 const styleStore = useStyleStore();
 
@@ -51,8 +53,9 @@ const componentClass = computed(() => {
   return base;
 });
 
-const itemLabel = computed(() => props.item.isCurrentUser ? usePage().props.auth.user.name : props.item.label)
-
+const itemLabel = computed(() =>
+  props.item.isCurrentUser ? usePage().props.auth.user.name : props.item.label
+);
 
 const isDropdownActive = ref(false);
 

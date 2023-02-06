@@ -13,14 +13,15 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    const NUMBER_OF_DIGIT_TO_STORE = 100;// 100 means round up to 2 numbers
+    const NUMBER_OF_DIGIT_TO_STORE = 100; // 100 means round up to 2 numbers
+
     /**
      * @var string[]
      */
     protected $fillable = [
         'user_id',
         'total',
-        'code'
+        'code',
     ];
 
     public static function getNewCode(): int
@@ -56,6 +57,9 @@ class Purchase extends Model
             'updated_at',
         ])
             ->selectRaw('round(total/100,2) as total')
+            ->when(! auth()->user()->isAdmin(), function ($query) {
+                return $query->where('user_id', auth()->id());
+            })
             ->with('user:id,name')
             ->paginate();
     }
@@ -66,7 +70,7 @@ class Purchase extends Model
     protected function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => Carbon::parse($value)->diffForHumans()
+            get: fn ($value) => Carbon::parse($value)->diffForHumans()
         );
     }
 
@@ -76,7 +80,7 @@ class Purchase extends Model
     protected function updatedAt(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => Carbon::parse($value)->diffForHumans()
+            get: fn ($value) => Carbon::parse($value)->diffForHumans()
         );
     }
 }

@@ -10,11 +10,13 @@ enum RolesEnum: int
 
     case ADMIN = 1;
     case CUSTOMER = 2;
+
     const ADMIN_ROLE_NAME = 'Admin';
+
     const CUSTOMER_ROLE_NAME = 'Customer';
 
     /**
-     * @param int $role
+     * @param  int  $role
      * @return string
      */
     public static function getRoleName(int $role): string

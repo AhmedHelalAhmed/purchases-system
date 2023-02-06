@@ -16,6 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     protected $perPage = 15;
+
     const SEARCH_LIMIT_SIZE = 5;
 
     const EMPTY = '-';
@@ -54,7 +55,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     public function profile()
     {
         return $this->hasOne(Profile::class);
@@ -68,7 +68,7 @@ class User extends Authenticatable
     protected function role(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => RolesEnum::getRoleName($value),
+            get: fn ($value) => RolesEnum::getRoleName($value),
         );
     }
 
@@ -80,7 +80,7 @@ class User extends Authenticatable
     protected function mobile(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value ?? self::EMPTY
+            get: fn ($value) => $value ?? self::EMPTY
         );
     }
 
@@ -92,7 +92,7 @@ class User extends Authenticatable
     protected function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => Carbon::parse($value)->diffForHumans()
+            get: fn ($value) => Carbon::parse($value)->diffForHumans()
         );
     }
 
@@ -139,7 +139,7 @@ class User extends Authenticatable
     {
         return self::query()
             ->select(['name', 'id'])
-            ->where('name', 'like', $searchTerm . "%")
+            ->where('name', 'like', $searchTerm.'%')
             ->customer()
             ->limit(self::SEARCH_LIMIT_SIZE)
             ->get();

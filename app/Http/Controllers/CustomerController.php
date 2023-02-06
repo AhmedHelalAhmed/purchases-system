@@ -15,7 +15,7 @@ class CustomerController extends Controller
     private CustomerService $service;
 
     /**
-     * @param CustomerService $service
+     * @param  CustomerService  $service
      */
     public function __construct(CustomerService $service)
     {
@@ -23,7 +23,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * @param CustomerStoreRequest $request
+     * @param  CustomerStoreRequest  $request
      * @return RedirectResponse
      */
     public function store(CustomerStoreRequest $request): RedirectResponse
@@ -36,8 +36,8 @@ class CustomerController extends Controller
     }
 
     /**
-     * @param CustomerUpdateRequest $request
-     * @param User $user
+     * @param  CustomerUpdateRequest  $request
+     * @param  User  $user
      * @return RedirectResponse
      */
     public function update(CustomerUpdateRequest $request, User $user): RedirectResponse
@@ -55,7 +55,7 @@ class CustomerController extends Controller
     public function index(): JsonResponse
     {
         return response()->json([
-            'customers' =>   $this->service->searchByName(request('name',''))
+            'customers' => $this->service->searchByName(request('name', '')),
         ]);
     }
 }

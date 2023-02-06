@@ -34,7 +34,6 @@ export const useStyleStore = defineStore("style", {
       for (const key in style) {
         this[`${key}Style`] = style[key];
       }
-
     },
 
     setDarkMode(payload = null) {

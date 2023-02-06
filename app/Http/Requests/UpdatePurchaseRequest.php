@@ -28,6 +28,7 @@ class UpdatePurchaseRequest extends FormRequest
         } else {
             $userIdRules = 'nullable';
         }
+
         return [
             'user_id' => $userIdRules,
             'total' => ['required', 'numeric'],

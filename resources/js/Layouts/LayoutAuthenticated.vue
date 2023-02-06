@@ -1,15 +1,15 @@
 <script setup>
-import {mdiBackburger, mdiForwardburger, mdiMenu} from "@mdi/js";
-import {computed, ref} from "vue";
+import { mdiBackburger, mdiForwardburger, mdiMenu } from "@mdi/js";
+import { computed, ref } from "vue";
 import menuAside from "@/menuAside.js";
 import menuNavBar from "@/menuNavBar.js";
-import {useMainStore} from "@/Stores/main.js";
-import {useStyleStore} from "@/Stores/style.js";
+import { useMainStore } from "@/Stores/main.js";
+import { useStyleStore } from "@/Stores/style.js";
 import BaseIcon from "@/Components/BaseIcon.vue";
 import NavBar from "@/Components/NavBar.vue";
 import NavBarItemPlain from "@/Components/NavBarItemPlain.vue";
 import AsideMenu from "@/Components/AsideMenu.vue";
-import {router, usePage} from '@inertiajs/vue3'
+import { router, usePage } from "@inertiajs/vue3";
 
 useMainStore().setUser({
   name: "John Doe",
@@ -22,15 +22,13 @@ const layoutAsidePadding = "xl:pl-60";
 
 const styleStore = useStyleStore();
 
-
 const isAsideMobileExpanded = ref(false);
 const isAsideLgActive = ref(false);
 
-
-router.on('navigate', () => {
-  isAsideMobileExpanded.value = false
-  isAsideLgActive.value = false
-})
+router.on("navigate", () => {
+  isAsideMobileExpanded.value = false;
+  isAsideLgActive.value = false;
+});
 const menuClick = (event, item) => {
   if (item.isToggleLightDark) {
     styleStore.setDarkMode();
@@ -38,11 +36,13 @@ const menuClick = (event, item) => {
 
   if (item.isLogout) {
     // Add:
-    router.post(route('logout'))
+    router.post(route("logout"));
   }
 };
 const currentUserRole = computed(() => usePage().props.auth.user.role);
-const authorizedMenu = computed(() => menuAside.filter((menu) => menu.roles.includes(currentUserRole.value)));
+const authorizedMenu = computed(() =>
+  menuAside.filter((menu) => menu.roles.includes(currentUserRole.value))
+);
 </script>
 
 <template>
@@ -77,9 +77,8 @@ const authorizedMenu = computed(() => menuAside.filter((menu) => menu.roles.incl
           display="hidden lg:flex xl:hidden"
           @click.prevent="isAsideLgActive = true"
         >
-          <BaseIcon :path="mdiMenu" size="24"/>
+          <BaseIcon :path="mdiMenu" size="24" />
         </NavBarItemPlain>
-
       </NavBar>
       <AsideMenu
         :is-aside-mobile-expanded="isAsideMobileExpanded"
@@ -88,8 +87,7 @@ const authorizedMenu = computed(() => menuAside.filter((menu) => menu.roles.incl
         @menu-click="menuClick"
         @aside-lg-close-click="isAsideLgActive = false"
       />
-      <slot/>
-
+      <slot />
     </div>
   </div>
 </template>

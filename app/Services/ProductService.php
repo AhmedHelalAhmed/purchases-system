@@ -3,25 +3,25 @@
 namespace App\Services;
 
 use App\Models\Product;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class ProductService
 {
     /**
-     * @param string $name
+     * @param  string  $name
      * @return Collection|array
      */
     public function searchByName(string $name): Collection|array
     {
-        if (!trim($name)) {
+        if (! trim($name)) {
             return [];
         }
+
         return Product::getByName($name);
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return bool
      */
     public function store(array $data): bool

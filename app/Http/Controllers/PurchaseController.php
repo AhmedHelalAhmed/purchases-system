@@ -13,11 +13,10 @@ use Inertia\Response;
 
 class PurchaseController extends Controller
 {
-
     private PurchaseService $service;
 
     /**
-     * @param PurchaseService $service
+     * @param  PurchaseService  $service
      */
     public function __construct(PurchaseService $service)
     {
@@ -32,11 +31,10 @@ class PurchaseController extends Controller
         return Inertia::render('Purchase/Index', [
             'purchases' => $this->service->getList(),
         ]);
-
     }
 
     /**
-     * @param StorePurchaseRequest $request
+     * @param  StorePurchaseRequest  $request
      * @return RedirectResponse
      */
     public function store(StorePurchaseRequest $request): RedirectResponse
@@ -51,12 +49,11 @@ class PurchaseController extends Controller
         return redirect()
             ->back()
             ->with('message', MessagesEnum::ERROR_MESSAGE->value);
-
     }
 
     /**
-     * @param Purchase $purchase
-     * @param UpdatePurchaseRequest $request
+     * @param  Purchase  $purchase
+     * @param  UpdatePurchaseRequest  $request
      * @return RedirectResponse
      */
     public function update(Purchase $purchase, UpdatePurchaseRequest $request): RedirectResponse
@@ -82,7 +79,7 @@ class PurchaseController extends Controller
     }
 
     /**
-     * @param Purchase $purchase
+     * @param  Purchase  $purchase
      * @return Response
      */
     public function edit(Purchase $purchase): Response
@@ -91,7 +88,7 @@ class PurchaseController extends Controller
     }
 
     /**
-     * @param Purchase $purchase
+     * @param  Purchase  $purchase
      * @return RedirectResponse
      */
     public function destroy(Purchase $purchase): RedirectResponse
@@ -109,7 +106,7 @@ class PurchaseController extends Controller
     }
 
     /**
-     * @param Purchase $purchase
+     * @param  Purchase  $purchase
      * @return Response
      */
     public function show(Purchase $purchase): Response

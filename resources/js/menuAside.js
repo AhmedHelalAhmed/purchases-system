@@ -1,19 +1,16 @@
-import {
-  mdiPointOfSale,
-  mdiSelectGroup,
-} from "@mdi/js";
+import { mdiPointOfSale, mdiSelectGroup } from "@mdi/js";
 
 export default [
   {
     href: "/users",
     label: "Users",
     icon: mdiSelectGroup,
-    roles: ["Admin"]
+    roles: ["Admin"],
   },
   {
     href: "/purchases",
     label: "Purchases",
     icon: mdiPointOfSale,
-    roles: ["Admin","Customer"]
+    roles: ["Admin", "Customer"],
   },
 ];

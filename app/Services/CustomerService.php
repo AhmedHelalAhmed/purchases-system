@@ -25,7 +25,7 @@ class CustomerService extends UserService
 
             return true;
         } catch (Exception $exception) {
-            Log::error('Error: ' . $exception->getMessage(), ['exception' => $exception]);
+            Log::error('Error: '.$exception->getMessage(), ['exception' => $exception]);
             DB::rollBack();
 
             return false;
@@ -42,7 +42,7 @@ class CustomerService extends UserService
 
             return true;
         } catch (Exception $exception) {
-            Log::error('Error: ' . $exception->getMessage(), ['exception' => $exception]);
+            Log::error('Error: '.$exception->getMessage(), ['exception' => $exception]);
             DB::rollBack();
 
             return false;
@@ -57,9 +57,10 @@ class CustomerService extends UserService
 
     public function searchByName(string $name): Collection|array
     {
-        if (!trim($name)) {
+        if (! trim($name)) {
             return [];
         }
+
         return User::getCustomersByName($name);
     }
 }

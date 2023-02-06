@@ -10,13 +10,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     const SEARCH_LIMIT_SIZE = 5;
+
     protected $fillable = ['name'];
+
     use HasFactory, SoftDeletes;
 
     public function purchases()
     {
         return $this->belongsToMany(Purchase::class)
-            ->withPivot(['quantity','unit_price'])
+            ->withPivot(['quantity', 'unit_price'])
             ->withTimestamps();
     }
 
@@ -24,7 +26,7 @@ class Product extends Model
     {
         return self::query()
             ->select('name', 'id')
-            ->where('name', 'like', $searchTerm . '%')
+            ->where('name', 'like', $searchTerm.'%')
             ->limit(self::SEARCH_LIMIT_SIZE)
             ->get();
     }

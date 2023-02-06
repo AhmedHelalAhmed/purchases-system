@@ -1,64 +1,54 @@
 <script setup>
-import { useForm, Head, Link } from '@inertiajs/vue3'
-import { mdiAccount, mdiAsterisk } from '@mdi/js'
-import LayoutGuest from '@/Layouts/LayoutGuest.vue'
-import SectionFullScreen from '@/Components/SectionFullScreen.vue'
-import CardBox from '@/Components/CardBox.vue'
-import FormCheckRadioGroup from '@/Components/FormCheckRadioGroup.vue'
-import FormField from '@/Components/FormField.vue'
-import FormControl from '@/Components/FormControl.vue'
-import BaseDivider from '@/Components/BaseDivider.vue'
-import BaseButton from '@/Components/BaseButton.vue'
-import BaseButtons from '@/Components/BaseButtons.vue'
-import FormValidationErrors from '@/Components/FormValidationErrors.vue'
-import NotificationBarInCard from '@/Components/NotificationBarInCard.vue'
-import BaseLevel from '@/Components/BaseLevel.vue'
+import { useForm, Head } from "@inertiajs/vue3";
+import { mdiAccount, mdiAsterisk } from "@mdi/js";
+import LayoutGuest from "@/Layouts/LayoutGuest.vue";
+import SectionFullScreen from "@/Components/SectionFullScreen.vue";
+import CardBox from "@/Components/CardBox.vue";
+import FormCheckRadioGroup from "@/Components/FormCheckRadioGroup.vue";
+import FormField from "@/Components/FormField.vue";
+import FormControl from "@/Components/FormControl.vue";
+import BaseDivider from "@/Components/BaseDivider.vue";
+import BaseButton from "@/Components/BaseButton.vue";
+import BaseButtons from "@/Components/BaseButtons.vue";
+import FormValidationErrors from "@/Components/FormValidationErrors.vue";
+import NotificationBarInCard from "@/Components/NotificationBarInCard.vue";
+import BaseLevel from "@/Components/BaseLevel.vue";
 
-const props = defineProps({
+defineProps({
   canResetPassword: Boolean,
   status: {
     type: String,
-    default: null
-  }
-})
+    default: null,
+  },
+});
 
 const form = useForm({
-  username: '',
-  password: '',
-  remember: []
-})
+  username: "",
+  password: "",
+  remember: [],
+});
 
 const submit = () => {
   form
-    .transform(data => ({
-      ... data,
-      remember: form.remember && form.remember.length ? 'on' : ''
+    .transform((data) => ({
+      ...data,
+      remember: form.remember && form.remember.length ? "on" : "",
     }))
-    .post(route('login'), {
-      onFinish: () => form.reset('password'),
-    })
-}
+    .post(route("login"), {
+      onFinish: () => form.reset("password"),
+    });
+};
 </script>
 
 <template>
   <LayoutGuest>
     <Head title="Login" />
 
-    <SectionFullScreen
-      v-slot="{ cardClass }"
-      bg="purplePink"
-    >
-      <CardBox
-        :class="cardClass"
-        is-form
-        @submit.prevent="submit"
-      >
+    <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
+      <CardBox :class="cardClass" is-form @submit.prevent="submit">
         <FormValidationErrors />
 
-        <NotificationBarInCard
-          v-if="status"
-          color="info"
-        >
+        <NotificationBarInCard v-if="status" color="info">
           {{ status }}
         </NotificationBarInCard>
 
@@ -68,9 +58,9 @@ const submit = () => {
           help="Please enter your username"
         >
           <FormControl
+            id="username"
             v-model="form.username"
             :icon="mdiAccount"
-            id="username"
             autocomplete="username"
             type="text"
             required
@@ -83,10 +73,10 @@ const submit = () => {
           help="Please enter your password"
         >
           <FormControl
+            id="password"
             v-model="form.password"
             :icon="mdiAsterisk"
             type="password"
-            id="password"
             autocomplete="current-password"
             required
           />

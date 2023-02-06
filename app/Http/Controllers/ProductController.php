@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\MessagesEnum;
 use App\Http\Requests\StoreProductRequest;
-use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 
@@ -18,25 +17,24 @@ class ProductController extends Controller
     }
 
     /**
-     * @param StoreProductRequest $request
+     * @param  StoreProductRequest  $request
      * @return JsonResponse
      */
     public function store(StoreProductRequest $request): JsonResponse
     {
-        $status=$this->productService->store($request->validated());
+        $status = $this->productService->store($request->validated());
 
-        if ($status){
+        if ($status) {
             return response()->json([
-                    'message' => 'Product created successfully'
-                ]
+                'message' => 'Product created successfully',
+            ]
             );
         }
 
         return response()->json([
-                'message' => MessagesEnum::ERROR_MESSAGE
-            ]
+            'message' => MessagesEnum::ERROR_MESSAGE,
+        ]
         );
-
     }
 
     /**
@@ -45,8 +43,8 @@ class ProductController extends Controller
     public function index(): JsonResponse
     {
         return response()->json([
-                'products' => $this->productService->searchByName(request('name',''))
-            ]
+            'products' => $this->productService->searchByName(request('name', '')),
+        ]
         );
     }
 }

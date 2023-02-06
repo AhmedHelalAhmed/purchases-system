@@ -21,6 +21,7 @@ Route::get('/', function () {
     if (auth()->user() && auth()->user()->isAdmin()) {
         return redirect('/dashboard');
     }
+
     return redirect('/purchases');
 });
 
@@ -47,4 +48,4 @@ Route::middleware('auth')->group(function () {
     Route::resource('products', \App\Http\Controllers\ProductController::class)->only(['index', 'store']);
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
