@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\RolesEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,6 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     protected $perPage = 15;
+    const SEARCH_LIMIT_SIZE = 5;
 
     const EMPTY = '-';
 
@@ -52,9 +54,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = [
-        'originalRole',
-    ];
 
     public function profile()
     {
@@ -69,7 +68,7 @@ class User extends Authenticatable
     protected function role(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => RolesEnum::getRoleName($value),
+            get: fn($value) => RolesEnum::getRoleName($value),
         );
     }
 
@@ -81,7 +80,7 @@ class User extends Authenticatable
     protected function mobile(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ?? self::EMPTY
+            get: fn($value) => $value ?? self::EMPTY
         );
     }
 
@@ -93,7 +92,7 @@ class User extends Authenticatable
     protected function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->diffForHumans()
+            get: fn($value) => Carbon::parse($value)->diffForHumans()
         );
     }
 
@@ -110,12 +109,17 @@ class User extends Authenticatable
         return $query->where('id', '!=', auth()->id());
     }
 
+    public function scopeCustomer($query)
+    {
+        return $query->where('role', RolesEnum::CUSTOMER->value);
+    }
+
     /**
      * @return LengthAwarePaginator
      */
     public static function getListPaginated(): LengthAwarePaginator
     {
-        return User::select([
+        return self::select([
             'id',
             'name',
             'username',
@@ -124,5 +128,20 @@ class User extends Authenticatable
         ])->notMe()
             ->with('profile.nationality')
             ->paginate();
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === RolesEnum::ADMIN_ROLE_NAME;
+    }
+
+    public static function getCustomersByName(string $searchTerm): Collection
+    {
+        return self::query()
+            ->select(['name', 'id'])
+            ->where('name', 'like', $searchTerm . "%")
+            ->customer()
+            ->limit(self::SEARCH_LIMIT_SIZE)
+            ->get();
     }
 }

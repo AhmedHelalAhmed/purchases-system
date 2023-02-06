@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Enums\RolesEnum;
 use App\Models\User;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -22,8 +24,8 @@ class CustomerService extends UserService
             DB::commit();
 
             return true;
-        } catch (\Exception $exception) {
-            Log::error('Error: '.$exception->getMessage(), ['exception' => $exception]);
+        } catch (Exception $exception) {
+            Log::error('Error: ' . $exception->getMessage(), ['exception' => $exception]);
             DB::rollBack();
 
             return false;
@@ -39,8 +41,8 @@ class CustomerService extends UserService
             DB::commit();
 
             return true;
-        } catch (\Exception $exception) {
-            Log::error('Error: '.$exception->getMessage(), ['exception' => $exception]);
+        } catch (Exception $exception) {
+            Log::error('Error: ' . $exception->getMessage(), ['exception' => $exception]);
             DB::rollBack();
 
             return false;
@@ -51,5 +53,13 @@ class CustomerService extends UserService
     {
         $user->profile()->delete();
         parent::delete($user);
+    }
+
+    public function searchByName(string $name): Collection|array
+    {
+        if (!trim($name)) {
+            return [];
+        }
+        return User::getCustomersByName($name);
     }
 }

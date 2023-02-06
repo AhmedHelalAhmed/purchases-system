@@ -17,24 +17,34 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::redirect('/', '/dashboard');
+Route::get('/', function () {
+    if (auth()->user() && auth()->user()->isAdmin()) {
+        return redirect('/dashboard');
+    }
+    return redirect('/purchases');
+});
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('HomeView');
-    })->name('dashboard');
-
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::put('/customers/{user}/edit', [CustomerController::class, 'update'])->name('customers.update');
-    Route::put('/admins/{user}/edit', [AdminController::class, 'update'])->name('admins.update');
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
-    Route::post('/admins', [AdminController::class, 'store'])->name('admins.store');
+    Route::middleware(\App\Http\Middleware\IsAdmin::class)->group(function () {
+        Route::get('/dashboard', function () {
+            return Inertia::render('HomeView');
+        })->name('dashboard');
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+        Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::put('/customers/{user}/edit', [CustomerController::class, 'update'])->name('customers.update');
+        Route::put('/admins/{user}/edit', [AdminController::class, 'update'])->name('admins.update');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+        Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
+        Route::post('/admins', [AdminController::class, 'store'])->name('admins.store');
+    });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('purchases', \App\Http\Controllers\PurchaseController::class);
+
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+    Route::resource('products', \App\Http\Controllers\ProductController::class)->only(['index', 'store']);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

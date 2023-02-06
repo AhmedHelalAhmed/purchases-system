@@ -2,14 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Nationality;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Profile>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Purchase>
  */
-class ProfileFactory extends Factory
+class PurchaseFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +18,9 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            'mobile' => fake()->phoneNumber(),
-            'nationality_id' => Nationality::inRandomOrder()->first()->id,
+            'total' => fake()->numberBetween(),
             'user_id' => User::factory()->customer(),
+            'code' => fake()->unique()->numberBetween(),
         ];
     }
 }

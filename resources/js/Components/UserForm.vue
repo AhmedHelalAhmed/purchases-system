@@ -74,90 +74,90 @@ const submit = () => {
   <SectionMain>
     <CardBox form @submit.prevent="submit">
       <FormField
+        help="Please enter your name"
         label="Name"
         label-for="name"
-        help="Please enter your name"
       >
         <FormControl
-          v-model="form.name"
           id="name"
+          v-model="form.name"
           :icon="mdiAccount"
           autocomplete="name"
-          type="text"
           required
+          type="text"
         />
 
       </FormField>
-      <InputError class="mt-1 mb-2" :message="form.errors.name"/>
+      <InputError :message="form.errors.name" class="mt-1 mb-2"/>
 
 
       <FormField
+        help="Please enter your email"
         label="Email"
         label-for="email"
-        help="Please enter your email"
       >
         <FormControl
-          v-model="form.email"
           id="email"
+          v-model="form.email"
           :icon="mdiEmail"
           autocomplete="email"
-          type="email"
           required
+          type="email"
         />
 
       </FormField>
-      <InputError class="mt-1 mb-2" :message="form.errors.email"/>
+      <InputError :message="form.errors.email" class="mt-1 mb-2"/>
 
       <BaseDivider/>
 
       <FormField
+        help="Please enter your username"
         label="Username"
         label-for="username"
-        help="Please enter your username"
       >
         <FormControl
-          v-model="form.username"
           id="username"
+          v-model="form.username"
           :icon="mdiAccount"
           autocomplete="username"
-          type="text"
           required
+          type="text"
         />
 
       </FormField>
-      <InputError class="mt-1 mb-2" :message="form.errors.username"/>
+      <InputError :message="form.errors.username" class="mt-1 mb-2"/>
 
       <FormField
+        help="Please enter new password"
         label="Password"
         label-for="password"
-        help="Please enter new password"
       >
         <FormControl
-          v-model="form.password"
           id="password"
+          v-model="form.password"
           :icon="mdiFormTextboxPassword"
-          type="password"
           autocomplete="new-password"
           required
+          type="password"
         />
       </FormField>
-      <InputError class="mt-1 mb-2" :message="form.errors.password"/>
+      <InputError :message="form.errors.password" class="mt-1 mb-2"/>
 
       <FormField
+        help="Please confirm your password"
         label="Confirm Password"
         label-for="password_confirmation"
-        help="Please confirm your password"
       >
         <FormControl
-          v-model="form.password_confirmation"
           id="password_confirmation"
+          v-model="form.password_confirmation"
           :icon="mdiFormTextboxPassword"
-          type="password"
           autocomplete="new-password"
           required
+          type="password"
         />
       </FormField>
-      <InputError class="mt-1 mb-2" :message="form.errors.password_confirmation"/>
+      <InputError :message="form.errors.password_confirmation" class="mt-1 mb-2"/>
 
       <BaseDivider/>
 
@@ -165,27 +165,27 @@ const submit = () => {
         <FormControl v-model="form.role" :options="roles"/>
 
       </FormField>
-      <InputError class="mt-1 mb-2" :message="form.errors.role"/>
+      <InputError :message="form.errors.role" class="mt-1 mb-2"/>
 
-      <FormField v-if="form.role===CUSTOMER_ROLE" label="Contact number" help="Do not enter the leading zero">
+      <FormField v-if="form.role===CUSTOMER_ROLE" help="Do not enter the leading zero" label="Contact number">
         <FormControl
           v-model="form.mobile"
-          type="tel"
           placeholder="Your phone number or mobile"
+          type="tel"
         />
 
       </FormField>
-      <InputError class="mt-1 mb-2" :message="form.errors.mobile"/>
+      <InputError :message="form.errors.mobile" class="mt-1 mb-2"/>
 
       <FormField v-if="form.role===CUSTOMER_ROLE" label="Nationality">
         <FormControl v-model="form.nationality_id	" :options="nationalities"/>
       </FormField>
-      <InputError class="mt-1 mb-2" :message="form.errors.nationality_id"/>
+      <InputError :message="form.errors.nationality_id" class="mt-1 mb-2"/>
 
       <template #footer>
         <BaseButtons>
-          <BaseButton @click="submit" color="info" label="Submit"/>
-          <BaseButton type="button" :href="route('users.index')" color="danger" outline  label="Back"/>
+          <BaseButton color="info" label="Save" @click="submit"/>
+          <BaseButton :href="route('users.index')" color="danger" label="Back" outline type="button"/>
         </BaseButtons>
       </template>
     </CardBox>

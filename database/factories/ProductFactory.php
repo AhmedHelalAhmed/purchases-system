@@ -7,9 +7,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Profile>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
  */
-class ProfileFactory extends Factory
+class ProductFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +19,7 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            'mobile' => fake()->phoneNumber(),
-            'nationality_id' => Nationality::inRandomOrder()->first()->id,
-            'user_id' => User::factory()->customer(),
+            'name' => fake()->word(),
         ];
     }
 }

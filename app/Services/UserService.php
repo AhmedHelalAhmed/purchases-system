@@ -11,7 +11,7 @@ class UserService implements DeleteUserInterface
 {
     public function storeUser(array $data): User
     {
-        return User::create($data);
+        return User::create(array_merge($data, ['password' => Hash::make($data['password'])]));
     }
 
     public function updateUser(User $user, array $data): bool
@@ -30,30 +30,30 @@ class UserService implements DeleteUserInterface
         return boolval(Arr::get($data, 'password', false));
     }
 
-     public function getList(): LengthAwarePaginator
-     {
-         return User::getListPaginated();
-     }
+    public function getList(): LengthAwarePaginator
+    {
+        return User::getListPaginated();
+    }
 
-     public function prepareData(): array
-     {
-         return [
-             'roles' => \App\Enums\RolesEnum::getOptions(),
-             'nationalities' => \App\Models\Nationality::select('id')->selectRaw('name as label')->get()->toArray(),
-         ];
-     }
+    public function prepareData(): array
+    {
+        return [
+            'roles' => \App\Enums\RolesEnum::getOptions(),
+            'nationalities' => \App\Models\Nationality::select('id')->selectRaw('name as label')->get()->toArray(),
+        ];
+    }
 
-     public function editData(User $user): array
-     {
-         $user->load('profile');
+    public function editData(User $user): array
+    {
+        $user->load('profile')->append('originalRole');
 
-         return array_merge($this->prepareData(), [
-             'user' => $user,
-         ]);
-     }
+        return array_merge($this->prepareData(), [
+            'user' => $user,
+        ]);
+    }
 
-     public function delete(User $user): void
-     {
-         $user->delete();
-     }
+    public function delete(User $user): void
+    {
+        $user->delete();
+    }
 }

@@ -10,16 +10,18 @@ enum RolesEnum: int
 
     case ADMIN = 1;
     case CUSTOMER = 2;
+    const ADMIN_ROLE_NAME = 'Admin';
+    const CUSTOMER_ROLE_NAME = 'Customer';
 
     /**
-     * @param  int  $role
+     * @param int $role
      * @return string
      */
     public static function getRoleName(int $role): string
     {
         return [
-            self::ADMIN->value => 'Admin',
-            self::CUSTOMER->value => 'Customer',
+            self::ADMIN->value => self::ADMIN_ROLE_NAME,
+            self::CUSTOMER->value => self::CUSTOMER_ROLE_NAME,
         ][$role];
     }
 
@@ -28,11 +30,11 @@ enum RolesEnum: int
         return [
             [
                 'id' => self::ADMIN->value,
-                'label' => 'Admin',
+                'label' => self::ADMIN_ROLE_NAME,
             ],
             [
                 'id' => self::CUSTOMER->value,
-                'label' => 'Customer',
+                'label' => self::CUSTOMER_ROLE_NAME,
             ],
         ];
     }
