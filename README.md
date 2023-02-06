@@ -8,7 +8,6 @@
 - ``` docker-compose up ```
 - Inside the web container execute the following commands:
 #### To go inside the container purchase_system_php (php) run  (this line only for docker)
-### Change the value of UID in .env User id number in ubuntu in the terminal just write id and get uid value in case of using docker this is very important step to avoid permission issue
 - ```composer install```
 - ```php artisan key:generate```
 - ```php artisan migrate --seed```
