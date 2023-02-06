@@ -1,66 +1,69 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Purchases system
+## [Server requirements](https://laravel.com/docs/9.x/deployment#server-requirements)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Steps to set up the project:
 
-## About Laravel
+### If you have  docker installed
+- ```cp .env.example .env``` and update with your data like database and redis
+- ``` docker-compose up ```
+- Inside the web container execute the following commands:
+#### To go inside the container purchase_system_php (php) run  (this line only for docker)
+### Change the value of UID in .env User id number in ubuntu in the terminal just write id and get uid value in case of using docker this is very important step to avoid permission issue
+- ```composer install```
+- ```php artisan key:generate```
+- ```php artisan migrate --seed```
+## You need to install node & npm
+- ```npm install```
+- ```npm run build```
+### To run code Fixer
+- ``` ./vendor/bin/pint ```
+### Technologies and tools
+- [PHP](https://www.php.net)
+- [Laravel9](https://laravel.com/docs/9.x)
+- [Laravel Breeze](https://laravel.com/docs/9.x/starter-kits#laravel-breeze)
+- [Vue.js3](https://vuejs.org)
+- [Nodejs](https://nodejs.org/en)
+- [Inertia.js](https://inertiajs.com)
+- [TailwindCSS](https://tailwindcss.com)
+- [Docker](https://docs.docker.com) & [docker-compose](https://docs.docker.com/compose)
+- [Mysql](https://www.mysql.com)
+- [UI](https://github.com/justboil/admin-one-vue-tailwind)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project requirements
+* Create sample website to manage company's customers and their purchases where each customer has multiple purchases as per below:
+* authenticate users by username and password (stateless authentication).
+* provide CRUD operations on customers and purchases.
+* only admin users will be able to add, update or delete customers data.
+* The website should be built using Laravel framework and vue.js.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech notes:
+- As the system is a blog then we should do server-side rendering allowing your visitors to see your website prior to the JavaScript fully loading. It also makes it easier for search engines to index your site.
+- Docker-compose setup has:
+    - webserver nginx web server
+    - php:8.2
+    - database (mysql server)
+    - phpmyadmin
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## About each container
+- webserver: server(nginx web server)
+- database_server: (blogging-platform_database): it has mysql database server
+- phpmyadmin: (blogging-platform_phpmyadmin): ui for database (database client)
 
-## Learning Laravel
+## Links of local dev for docker
+- [Purchases system](http://localhost)
+- [phpmyadmin](http://localhost:8080)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Links of local dev for built-in server
+- [Purchases system](http://localhost:8000)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Note:
+- You need to log in as Admin with username: admin password: password
+- You need to create some customers
+- You then can create purchase but first add some products in create purchase page there is a button to add products
+- In create purchase page you can search from the customer then select it 
+- In create purchase page after you added some products you can add record to the purchase with the products you recently added or from previous add
+- Mainly purchase order record first field is search you need to search with product name then select it from results
+- Create/edit/delete/show/list for purchase
+- Create/edit/delete/list for customers
+- Api for search for products/customers
+- Api for create product
